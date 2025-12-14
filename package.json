@@ -1,0 +1,13 @@
+{
+  "name": "poly-observability-mcp",
+  "version": "1.0.0",
+  "description": "Unified MCP server for observability: Prometheus, Grafana, Loki, Jaeger, OpenTelemetry",
+  "main": "index.js",
+  "type": "module",
+  "author": "Jonathan D.A. Jewell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hyperpolymath/poly-observability-mcp.git"
+  }
+}

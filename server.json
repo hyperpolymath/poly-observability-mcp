@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.hyperpolymath/poly-observability-mcp",
+  "title": "Polyglot Observability MCP",
+  "description": "Unified MCP server for observability: Prometheus, Grafana, Loki, Jaeger, OpenTelemetry. Monitor and debug systems from your AI assistant.",
+  "repository": {
+    "url": "https://github.com/hyperpolymath/poly-observability-mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "oci",
+      "identifier": "ghcr.io/hyperpolymath/poly-observability-mcp:main",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
