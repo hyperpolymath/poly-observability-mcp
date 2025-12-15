@@ -16,7 +16,9 @@
   '((immediate (("Verify CI/CD" . high))) (this-week (("Expand tests" . medium)))))
 
 (define session-history
-  '((snapshots ((date . "2025-12-15") (session . "initial") (notes . "SCM files added")))))
+  '((snapshots ((date . "2025-12-15") (session . "initial") (notes . "SCM files added"))
+               ((date . "2025-12-15") (session . "security-fixes")
+                (notes . "OpenSSF Scorecard: SHA-pinned all actions, added SPDX headers, permissions, fixed CodeQL matrix, deleted empty security.yml")))))
 
 (define state-summary
   '((project . "poly-observability-mcp") (completion . 25) (blockers . 0) (updated . "2025-12-15")))
