@@ -2,6 +2,10 @@
 :toc:
 :toc-placement!:
 
+image:https://img.shields.io/badge/RSR-compliant-gold[RSR Compliant,link=https://github.com/hyperpolymath/rhodium-standard-repositories]
+image:https://img.shields.io/badge/MCP-server-blue[MCP Server,link=https://github.com/modelcontextprotocol]
+image:https://img.shields.io/badge/license-MIT-green[License]
+
 Unified MCP server for observability and monitoring. Provides Model Context Protocol tools for querying metrics, logs, and traces through Prometheus, Grafana, Loki, and Jaeger.
 
 toc::[]

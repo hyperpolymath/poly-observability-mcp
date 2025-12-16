@@ -1,15 +1,9 @@
-# Security Policy for RSR-template-repo
+# Security Policy for poly-observability-mcp
 # https://securitytxt.org/
 
 Contact: security@hyperpolymath.org
-Expires: {{EXPIRY_DATE}}
+Expires: 2026-12-31T23:59:59.000Z
 Encryption: https://hyperpolymath.org/gpg/security.asc
 Preferred-Languages: en, nl
-Canonical: https://github.com/hyperpolymath/RSR-template-repo/.well-known/security.txt
-Policy: https://github.com/hyperpolymath/RSR-template-repo/blob/main/SECURITY.md
-
-# Acknowledgments
-Acknowledgments: https://hyperpolymath.org/security/acknowledgments
-
-# Hiring
-Hiring: https://hyperpolymath.org/careers
+Canonical: https://github.com/hyperpolymath/poly-observability-mcp/.well-known/security.txt
+Policy: https://github.com/hyperpolymath/poly-observability-mcp/blob/main/SECURITY.md
