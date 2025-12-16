@@ -5,13 +5,13 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 
-// Import ReScript compiled adapters when available
-// import * as Prometheus from "./lib/es6/src/adapters/Prometheus.res.js";
-// import * as Grafana from "./lib/es6/src/adapters/Grafana.res.js";
-// import * as Loki from "./lib/es6/src/adapters/Loki.res.js";
+// Import ReScript compiled adapters
+import * as Prometheus from "./lib/es6/src/adapters/Prometheus.res.js";
+import * as Grafana from "./lib/es6/src/adapters/Grafana.res.js";
+import * as Loki from "./lib/es6/src/adapters/Loki.res.js";
 
 const VERSION = "1.0.0";
-const adapters = [];
+const adapters = [Prometheus, Grafana, Loki];
 
 async function main() {
   const server = new McpServer({

@@ -43,3 +43,49 @@ module Command = {
     (result.code, decoder["decode"](result.stdout), decoder["decode"](result.stderr))
   }
 }
+
+module Fetch = {
+  type response = {
+    ok: bool,
+    status: int,
+    statusText: string,
+  }
+
+  type requestInit = {
+    method: string,
+    headers?: dict<string>,
+    body?: string,
+  }
+
+  @val external fetch: (string, requestInit) => promise<response> = "fetch"
+  @send external text: response => promise<string> = "text"
+  @send external json: response => promise<JSON.t> = "json"
+
+  let get = async (url: string, ~headers: dict<string>=Dict.make()): result<JSON.t, string> => {
+    try {
+      let response = await fetch(url, {method: "GET", headers})
+      if response.ok {
+        let data = await json(response)
+        Ok(data)
+      } else {
+        Error(`HTTP ${Int.toString(response.status)}: ${response.statusText}`)
+      }
+    } catch {
+    | Exn.Error(e) => Error(Exn.message(e)->Option.getOr("Unknown error"))
+    }
+  }
+
+  let post = async (url: string, ~body: string, ~headers: dict<string>=Dict.make()): result<JSON.t, string> => {
+    try {
+      let response = await fetch(url, {method: "POST", headers, body})
+      if response.ok {
+        let data = await json(response)
+        Ok(data)
+      } else {
+        Error(`HTTP ${Int.toString(response.status)}: ${response.statusText}`)
+      }
+    } catch {
+    | Exn.Error(e) => Error(Exn.message(e)->Option.getOr("Unknown error"))
+    }
+  }
+}
