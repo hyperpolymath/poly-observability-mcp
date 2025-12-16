@@ -1,21 +1,21 @@
 {
   "name": "poly-observability-mcp",
   "version": "1.0.0",
-  "exports": "./index.js",
+  "exports": "./main.js",
+  "nodeModulesDir": true,
   "tasks": {
-    "start": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run index.js",
-    "dev": "deno run --watch --allow-net --allow-read --allow-write --allow-env --allow-run index.js",
-    "test": "deno test --allow-net --allow-read --allow-write --allow-env --allow-run",
-    "lint": "deno lint",
-    "fmt": "deno fmt",
-    "check": "deno check index.js"
+    "start": "deno run --allow-net --allow-read --allow-write --allow-env --allow-run main.js",
+    "dev": "deno run --watch --allow-net --allow-read --allow-write --allow-env --allow-run main.js",
+    "build": "npx rescript build",
+    "clean": "npx rescript clean"
   },
   "imports": {
-    "@anthropic-ai/sdk": "npm:@anthropic-ai/sdk@^0.39.0",
-    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@^1.0.0"
+    "@rescript/runtime": "npm:@rescript/runtime@12.0.1",
+    "@modelcontextprotocol/sdk/server/mcp.js": "npm:@modelcontextprotocol/sdk@1.24.3/server/mcp.js",
+    "@modelcontextprotocol/sdk/server/stdio.js": "npm:@modelcontextprotocol/sdk@1.24.3/server/stdio.js",
+    "@modelcontextprotocol/sdk/": "npm:@modelcontextprotocol/sdk@1.24.3/"
   },
   "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true
+    "lib": ["deno.window", "deno.unstable"]
   }
 }
