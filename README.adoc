@@ -1,217 +1,135 @@
-= RSR Template Repository
+= poly-observability-mcp
 :toc:
-:sectnums:
+:toc-placement!:
 
-// Badges
-image:https://img.shields.io/badge/RSR-Infrastructure-cd7f32[RSR Infrastructure]
-image:https://img.shields.io/badge/Phase-Maintenance-brightgreen[Phase]
-image:https://img.shields.io/badge/License-AGPL%20OR%20Palimpsest-blue[License]
-image:https://img.shields.io/badge/Guix-Primary-purple?logo=gnu[Guix]
+Unified MCP server for observability and monitoring. Provides Model Context Protocol tools for querying metrics, logs, and traces through Prometheus, Grafana, Loki, and Jaeger.
+
+toc::[]
 
 == Overview
 
-**The canonical template for RSR (Rhodium Standard Repository) projects.**
+poly-observability-mcp exposes observability capabilities through the Model Context Protocol (MCP), enabling AI assistants and other MCP clients to query metrics, search logs, analyze traces, and manage dashboards across the observability stack.
 
-This repository provides the standardized structure, configuration, and tooling for all 139 repos in the hyperpolymath ecosystem. Use it to:
+== Adapters
 
-* Bootstrap new projects with RSR compliance
-* Reference the standard directory structure
-* Copy configuration templates (justfile, STATE.scm, etc.)
+=== Prometheus (8 tools)
+Metrics querying and alerting:
 
-== Quick Start
+* `prometheus_query` - Execute an instant PromQL query
+* `prometheus_query_range` - Execute a range PromQL query
+* `prometheus_series` - List time series matching a selector
+* `prometheus_labels` - List all label names
+* `prometheus_label_values` - List values for a specific label
+* `prometheus_targets` - Get current scrape targets and their status
+* `prometheus_alerts` - Get current active alerts
+* `prometheus_rules` - Get alerting and recording rules
 
-[source,bash]
-----
-# Clone the template
-git clone https://github.com/hyperpolymath/RSR-template-repo my-project
-cd my-project
+=== Grafana (8 tools)
+Dashboard and visualization management:
 
-# Remove template git history
-rm -rf .git
-git init
+* `grafana_search_dashboards` - Search for dashboards by name or tag
+* `grafana_get_dashboard` - Get a dashboard by UID
+* `grafana_list_datasources` - List all configured data sources
+* `grafana_get_datasource` - Get data source details by name
+* `grafana_list_folders` - List all dashboard folders
+* `grafana_get_alert_rules` - Get all alert rules
+* `grafana_get_annotations` - Get annotations within a time range
+* `grafana_get_org` - Get current organization info
 
-# Customize
-sed -i 's/RSR-template-repo/my-project/g' justfile guix.scm README.adoc
+=== Loki (7 tools)
+Log aggregation and querying:
 
-# Enter development environment
-guix shell -D -f guix.scm
+* `loki_query` - Execute an instant LogQL query
+* `loki_query_range` - Execute a range LogQL query
+* `loki_labels` - List all label names
+* `loki_label_values` - List values for a specific label
+* `loki_series` - List log streams matching a selector
+* `loki_tail` - Get recent logs (snapshot of tail)
+* `loki_index_stats` - Get index statistics
 
-# Validate compliance
-just validate-rsr
-----
+=== Jaeger (5 tools)
+Distributed tracing:
 
-== What's Included
+* `jaeger_services` - List all services in Jaeger
+* `jaeger_traces` - Get traces for a service
+* `jaeger_trace` - Get a specific trace by ID
+* `jaeger_operations` - Get operations for a service
+* `jaeger_dependencies` - Get service dependency graph
 
-[cols="1,3"]
-|===
-|File/Directory |Purpose
+== Requirements
 
-|`.editorconfig`
-|Editor configuration (indent, charset)
+* https://deno.land/[Deno] runtime
+* https://prometheus.io/[Prometheus] (for metrics tools)
+* https://grafana.com/[Grafana] (for dashboard tools)
+* https://grafana.com/oss/loki/[Loki] (for log tools)
+* https://www.jaegertracing.io/[Jaeger] (for tracing tools)
 
-|`.gitignore`
-|Standard ignore patterns
+== Configuration
 
-|`.guix-channel`
-|Guix channel definition
-
-|`.well-known/`
-|RFC-compliant metadata (security.txt, ai.txt, humans.txt)
-
-|`docs/`
-|Documentation directory
-
-|`guix.scm`
-|Guix package definition
-
-|`justfile`
-|Task runner with 50+ recipes
-
-|`LICENSE.txt`
-|AGPL + Palimpsest dual license
-
-|`README.adoc`
-|This file
-
-|`RSR_COMPLIANCE.adoc`
-|Compliance tracking
-
-|`STATE.scm`
-|Project state checkpoint
-|===
-
-== Justfile Features
-
-The template justfile provides:
-
-* **~10 billion recipe combinations** via matrix recipes
-* **Cookbook generation**: `just cookbook` → `docs/just-cookbook.adoc`
-* **Man page generation**: `just man` → `docs/man/project.1`
-* **RSR validation**: `just validate-rsr`
-* **STATE.scm management**: `just state-touch`, `just state-phase`
-* **Container support**: `just container-build`, `just container-push`
-* **CI matrix**: `just ci-matrix [stage] [depth]`
-
-=== Key Recipes
+=== Prometheus
 
 [source,bash]
 ----
-just                # Show all recipes
-just help <recipe>  # Detailed help
-just info           # Project info
-just combinations   # Show matrix options
-
-just build          # Build (debug)
-just test           # Run tests
-just quality        # Format + lint + test
-just ci             # Full CI pipeline
-
-just validate       # RSR + STATE validation
-just docs           # Generate all docs
-just cookbook       # Generate justfile docs
-
-just guix-shell     # Guix dev environment
-just container-build # Build container
+export PROMETHEUS_URL=http://localhost:9090
 ----
 
-== Directory Structure
-
-[source]
-----
-project/
-├── .editorconfig          # Editor settings
-├── .gitignore             # Git ignore
-├── .guix-channel          # Guix channel
-├── .well-known/           # RFC metadata
-│   ├── ai.txt
-│   ├── humans.txt
-│   └── security.txt
-├── config/                # Nickel configs (optional)
-├── docs/                  # Documentation
-│   ├── generated/
-│   ├── man/
-│   └── just-cookbook.adoc
-├── guix.scm               # Guix package
-├── justfile               # Task runner
-├── LICENSE.txt            # Dual license
-├── README.adoc            # Overview
-├── RSR_COMPLIANCE.adoc    # Compliance
-├── src/                   # Source code
-├── STATE.scm              # State checkpoint
-└── tests/                 # Tests
-----
-
-== RSR Compliance
-
-=== Language Tiers
-
-* **Tier 1** (Gold): Rust, Elixir, Zig, Ada, Haskell, ReScript
-* **Tier 2** (Silver): Nickel, Racket, Guile Scheme, Nix
-* **Infrastructure**: Guix channels, derivations
-
-=== Required Files
-
-* `.editorconfig`
-* `.gitignore`
-* `justfile`
-* `README.adoc`
-* `RSR_COMPLIANCE.adoc`
-* `LICENSE.txt` (AGPL + Palimpsest)
-* `.well-known/security.txt`
-* `.well-known/ai.txt`
-* `.well-known/humans.txt`
-* `guix.scm` OR `flake.nix`
-
-=== Prohibited
-
-* Python outside `salt/` directory
-* TypeScript/JavaScript (use ReScript)
-* CUE (use Guile/Nickel)
-* `Dockerfile` (use `Containerfile`)
-
-== STATE.scm
-
-The STATE.scm file tracks project state:
-
-[source,scheme]
-----
-(define state
-  `((metadata
-     (project . "my-project")
-     (updated . "2025-12-10"))
-    (position
-     (phase . implementation)  ; design|implementation|testing|maintenance|archived
-     (maturity . beta))        ; experimental|alpha|beta|production|lts
-    (ecosystem
-     (part-of . ("RSR Framework"))
-     (depends-on . ()))))
-----
-
-== Badge Schema
-
-Generate badges from STATE.scm:
+=== Grafana
 
 [source,bash]
 ----
-just badges standard
+export GRAFANA_URL=http://localhost:3000
+export GRAFANA_API_KEY=your-api-key
 ----
 
-See `docs/BADGE_SCHEMA.adoc` for the full badge taxonomy.
+=== Loki
 
-== Ecosystem Integration
+[source,bash]
+----
+export LOKI_URL=http://localhost:3100
+----
 
-This template is part of:
+=== Jaeger
 
-* **STATE.scm Ecosystem**: Conversation checkpoints
-* **RSR Framework**: Repository standards
-* **Consent-Aware-HTTP**: .well-known compliance
+[source,bash]
+----
+export JAEGER_URL=http://localhost:16686
+----
+
+== Installation
+
+[source,bash]
+----
+git clone https://github.com/hyperpolymath/poly-observability-mcp
+cd poly-observability-mcp
+npm install
+npm run build
+----
+
+== Usage
+
+Run as MCP server:
+
+[source,bash]
+----
+deno run --allow-read --allow-env --allow-net main.js
+----
+
+Or use the systemd service:
+
+[source,bash]
+----
+systemctl --user enable poly-observability-mcp
+systemctl --user start poly-observability-mcp
+----
+
+== Use Cases
+
+* Query application metrics and performance data
+* Search and analyze logs across services
+* Trace requests through distributed systems
+* Monitor and manage Grafana dashboards
+* Investigate incidents using correlated telemetry
 
 == License
 
-SPDX-License-Identifier: `AGPL-3.0-or-later OR LicenseRef-Palimpsest-0.5`
-
-== Links
-
-* https://github.com/hyperpolymath/elegant-STATE[elegant-STATE] - STATE.scm tooling
-* https://github.com/hyperpolymath/conative-gating[conative-gating] - Policy enforcement
-* https://rhodium.sh[Rhodium Standard] - RSR documentation
+MIT
