@@ -4,7 +4,7 @@
 # poly-observability-mcp - Wolfi Base (Primary)
 # Minimal, secure container image using Wolfi (FOSS, no auth required)
 
-FROM ghcr.io/wolfi-dev/wolfi-base:latest
+FROM cgr.dev/chainguard/wolfi-base:latest
 
 LABEL org.opencontainers.image.title="poly-observability-mcp"
 LABEL org.opencontainers.image.description="Multi-backend observability MCP server (Prometheus, Grafana, Loki, Jaeger, OpenTelemetry)"
