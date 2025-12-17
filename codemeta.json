@@ -1,27 +1,29 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "identifier": "RSR-template-repo",
-  "name": "RSR-template-repo",
-  "description": "RSR-compliant project",
-  "version": "0.1.0",
+  "identifier": "poly-observability-mcp",
+  "name": "poly-observability-mcp",
+  "description": "Unified MCP server for observability: Prometheus, Grafana, Loki, Jaeger, OpenTelemetry",
+  "version": "1.0.0",
   "dateCreated": "2025-12-10",
-  "dateModified": "2025-12-10",
-  "license": "https://spdx.org/licenses/AGPL-3.0-or-later.html",
-  "codeRepository": "https://github.com/hyperpolymath/RSR-template-repo",
-  "issueTracker": "https://github.com/hyperpolymath/RSR-template-repo/issues",
-  "programmingLanguage": ["Guile Scheme"],
+  "dateModified": "2025-12-17",
+  "license": "https://spdx.org/licenses/MIT.html",
+  "codeRepository": "https://github.com/hyperpolymath/poly-observability-mcp",
+  "issueTracker": "https://github.com/hyperpolymath/poly-observability-mcp/issues",
+  "programmingLanguage": ["ReScript", "JavaScript"],
+  "runtimePlatform": "Deno",
   "developmentStatus": "active",
-  "keywords": ["RSR", "rhodium-standard"],
+  "keywords": ["MCP", "observability", "prometheus", "grafana", "loki", "jaeger", "monitoring", "RSR"],
   "author": [{
     "@type": "Person",
-    "givenName": "Hyper",
-    "familyName": "Polymath",
+    "givenName": "Jonathan",
+    "familyName": "Jewell",
+    "alternateName": "hyperpolymath",
     "email": "hyperpolymath@proton.me"
   }],
   "isPartOf": [{
     "@type": "SoftwareApplication",
-    "name": "RSR Framework",
-    "url": "https://rhodium.sh"
+    "name": "Model Context Protocol",
+    "url": "https://github.com/modelcontextprotocol"
   }]
 }
