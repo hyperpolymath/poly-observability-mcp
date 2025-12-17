@@ -105,9 +105,10 @@ export JAEGER_URL=http://localhost:16686
 ----
 git clone https://github.com/hyperpolymath/poly-observability-mcp
 cd poly-observability-mcp
-npm install
-npm run build
+deno cache main.js
 ----
+
+NOTE: This project uses Deno with npm: specifiers. No `npm install` required.
 
 == Usage
 
