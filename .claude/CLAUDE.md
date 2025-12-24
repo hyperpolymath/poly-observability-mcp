@@ -1,52 +1,80 @@
-# Project Instructions
+# CLAUDE.md - AI Assistant Instructions
 
-## ⚠️ CONVERSION NEEDED: npm → Deno
+## Language Policy (Hyperpolymath Standard)
 
-This repo currently uses npm but needs to be converted to Deno.
+### ALLOWED Languages & Tools
 
-### DO NOT:
-- Run `npm install`
-- Add new npm dependencies
-- Create package-lock.json
+| Language/Tool | Use Case | Notes |
+|---------------|----------|-------|
+| **ReScript** | Primary application code | Compiles to JS, type-safe |
+| **Deno** | Runtime & package management | Replaces Node/npm/bun |
+| **Rust** | Performance-critical, systems, WASM | Preferred for CLI tools |
+| **Bash/POSIX Shell** | Scripts, automation | Keep minimal |
+| **JavaScript** | Only where ReScript cannot | MCP protocol glue, Deno APIs |
+| **Python** | SaltStack only | No other Python permitted |
+| **Nickel** | Configuration language | For complex configs |
+| **Guile Scheme** | State/meta files | STATE.scm, META.scm, ECOSYSTEM.scm |
 
-### INSTEAD:
-- Use `deno task` for scripts
-- Use npm: specifiers for dependencies (e.g., `import X from "npm:package"`)
-- Create deno.json instead of package.json
+### BANNED - Do Not Use
 
-### Conversion Steps:
-1. Analyze package.json dependencies
-2. Create deno.json with equivalent imports/tasks
-3. Update source files to use Deno imports
-4. Remove package.json and package-lock.json
-5. Test with `deno check` and `deno test`
+| Banned | Replacement |
+|--------|-------------|
+| TypeScript | ReScript |
+| Node.js | Deno |
+| npm | Deno |
+| Bun | Deno |
+| pnpm/yarn | Deno |
+| Go | Rust |
+| Python (general) | ReScript/Rust |
+| Java/Kotlin | Rust |
 
-## Package Manager Policy (RSR)
+### Enforcement Rules
 
-- **REQUIRED**: Deno for JavaScript/TypeScript
-- **FORBIDDEN**: npm, npx, node_modules (after conversion)
-- **FALLBACK**: Bun only if Deno is impossible
+1. **No new TypeScript files** - Convert existing TS to ReScript
+2. **No package.json for runtime deps** - Use deno.json imports
+3. **No node_modules in production** - Deno caches deps automatically
+4. **No Go code** - Use Rust instead
+5. **Python only for SaltStack** - All other Python must be rewritten
 
-## Language & Security Policy (RSR)
+### ReScript Conventions
 
-### Allowed Languages (Primary → Fallback)
-- **Systems/ML**: Rust
-- **Web/Scripts**: ReScript → TypeScript (legacy only)
-- **TUI**: Ada/SPARK
-- **WordPress**: PHP (with security CI)
-- **LSP**: Java (exception for IDE compatibility)
+- Output format: ES6 modules (`"module": "es6"` in rescript.json)
+- File extension: `.res` (compiled to `.res.js`)
+- Use `@rescript/core` for stdlib
+- Bindings in `src/bindings/` directory
 
-### Banned Languages
-- Python (except SaltStack)
-- Ruby (use Rust/Ada/Crystal)
-- Perl (use Rust)
-- New Java/Kotlin (except LSP)
+### Deno Conventions
 
-### Package Management
-- **Primary**: Guix (guix.scm)
-- **Fallback**: Nix (flake.nix)
+- Import maps in `deno.json`
+- Permissions explicitly declared
+- Use `Deno.Command` not shell execution
+- Format with `deno fmt`
+- Lint with `deno lint`
 
-### Security Requirements
-- No MD5/SHA1 for security (use SHA256+)
-- HTTPS only (no HTTP URLs)
-- No hardcoded secrets
+### Build Commands
+
+```bash
+# ReScript build
+deno task res:build   # or: npx rescript build
+
+# Run server
+deno task start
+
+# Development
+deno task dev
+```
+
+### Migration Priority
+
+When encountering banned languages:
+1. **Immediate**: Block new code in banned languages
+2. **Short-term**: Convert TypeScript to ReScript
+3. **Medium-term**: Replace Node/npm with Deno
+4. **Long-term**: Rewrite Go/Python in Rust
+
+## Code Quality
+
+- SPDX license headers on all files
+- SHA-pinned dependencies
+- No shell metacharacters in commands
+- Whitelist approach for CLI subcommands

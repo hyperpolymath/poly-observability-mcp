@@ -2,14 +2,14 @@
 // SPDX-FileCopyrightText: 2025 Jonathan D.A. Jewell
 // main.js - Entry shim for poly-observability-mcp (ReScript compiled)
 
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.res.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.res.js";
 
 // Import ReScript compiled adapters
-import * as Prometheus from "./lib/es6/src/adapters/Prometheus.res.js";
-import * as Grafana from "./lib/es6/src/adapters/Grafana.res.js";
-import * as Loki from "./lib/es6/src/adapters/Loki.res.js";
-import * as Jaeger from "./lib/es6/src/adapters/Jaeger.res.js";
+import * as Prometheus from "./lib/es6/src/adapters/Prometheus.res.res.js";
+import * as Grafana from "./lib/es6/src/adapters/Grafana.res.res.js";
+import * as Loki from "./lib/es6/src/adapters/Loki.res.res.js";
+import * as Jaeger from "./lib/es6/src/adapters/Jaeger.res.res.js";
 
 const VERSION = "1.1.0";
 const adapters = [Prometheus, Grafana, Loki, Jaeger];
